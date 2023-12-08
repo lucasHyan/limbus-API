@@ -11,26 +11,37 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class CharacterServiceTests {
 	Logger logger = LoggerFactory.getLogger(CharacterService.class);
-@Autowired
+	@Autowired
 	CharacterService characterService;
+
 	@Test
 	void TestGetAll() {
 		List<Character> characters = characterService.getAll();
 		assertEquals(13, characters.size());
 	}
+
 	@Test
-	void TestGetById(){
-		Long id = 1L;
-		Optional<Character> character = characterService.getById(id);
+	void TestGetById() {
+		int id = 1;
+		Optional<Character> optionalCharacter = characterService.getById(id);
+		Character character = optionalCharacter.get();
 		logger.info(character.toString());
+		assertEquals("Yi Sang", character.getName());
+	}
+
+	@Test
+	void TestDeleteCharacter() {
+		int id = 1;
+		Optional<Character> character = characterService.getById(id);
 		assertNotNull(character);
-//		assertEquals("Yi Sang", character);
+		characterService.deleteById(id);
+		Optional<Character> deletedCharacter = characterService.getById(id);
+		assertFalse(deletedCharacter.isEmpty());
 	}
 
 }
