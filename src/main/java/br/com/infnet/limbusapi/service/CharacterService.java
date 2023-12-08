@@ -42,7 +42,7 @@ public class CharacterService {
                                 .egos(yiSangEgo)
                                 .build());
 
-                characters.put((long) 2, Character.builder()
+                characters.put(2L, Character.builder()
                                 .name("Faust")
                                 .bookQuote("Es irrt der Mensch, solang er strebt.")
                                 .englishBookQuote("Man errs, as long as he strives.")
@@ -53,7 +53,7 @@ public class CharacterService {
                                 .voiceActor("Park Ji-yoon")
                                 .build());
 
-                characters.put((long) 3, Character.builder()
+                characters.put(3L, Character.builder()
                                 .name("Don Quixote")
                                 .bookQuote("¡Por alcanzar la estrella inalcanzable!")
                                 .englishBookQuote("To reach the unreachable star!")
@@ -64,7 +64,7 @@ public class CharacterService {
                                 .voiceActor("Kim Yea-lim")
                                 .build());
 
-                characters.put((long) 4, Character.builder()
+                characters.put(4L, Character.builder()
                                 .name("Ryōshū")
                                 .bookQuote("かいなでの絵師には総じて醜いものの美しさなどと申すことは、わかろうはずがございませぬ。")
                                 .englishBookQuote(
@@ -76,7 +76,7 @@ public class CharacterService {
                                 .voiceActor("Lee Sae-ah")
                                 .build());
 
-                characters.put((long) 5, Character.builder()
+                characters.put(5L, Character.builder()
                                 .name("Meursault")
                                 .bookQuote("Aujourd'hui, j'ai tué maman. Ou peut-être était-ce hier.")
                                 .englishBookQuote("Today, I killed mother. Or maybe it was yesterday.")
@@ -87,7 +87,7 @@ public class CharacterService {
                                 .voiceActor("Kwon Sung-hyuk")
                                 .build());
 
-                characters.put((long) 6, Character.builder()
+                characters.put(6L, Character.builder()
                                 .name("Hong Lu")
                                 .bookQuote("美中不足、 好事多魔。")
                                 .englishBookQuote("Jade has its flaws, and life its vicissitudes.")
@@ -98,7 +98,7 @@ public class CharacterService {
                                 .voiceActor("Kim Sin-woo")
                                 .build());
 
-                characters.put((long) 7, Character.builder()
+                characters.put(7L, Character.builder()
                                 .name("Heathcliff")
                                 .bookQuote("I have not broken your heart - YOU have; and in breaking it, you have broken mine.")
                                 .englishBookQuote(
@@ -110,7 +110,7 @@ public class CharacterService {
                                 .voiceActor("Hong Seung-hyo")
                                 .build());
 
-                characters.put((long) 8, Character.builder()
+                characters.put(8L, Character.builder()
                                 .name("Ishmael")
                                 .bookQuote("If you please, call me Ishmael.")
                                 .englishBookQuote("If you please, call me Ishmael.")
@@ -121,7 +121,7 @@ public class CharacterService {
                                 .voiceActor("Jang Ye-na")
                                 .build());
 
-                characters.put((long) 9, Character.builder()
+                characters.put(9L, Character.builder()
                                 .name("Rodion")
                                 .bookQuote("Он бы хотел совсем забыться, все забыть, потом проснуться и начать совсем сызнова.")
                                 .englishBookQuote("If she could forget everything, and begin afresh.")
@@ -132,7 +132,7 @@ public class CharacterService {
                                 .voiceActor("Yoon A-young")
                                 .build());
 
-                characters.put((long) 10, Character.builder()
+                characters.put(10L, Character.builder()
                                 .name("Dante")
                                 .bookQuote("Lasciate ogne speranza, voi ch'intrate. ")
                                 .englishBookQuote("Abandon hope, all ye who enters here.")
@@ -143,7 +143,7 @@ public class CharacterService {
                                 .voiceActor(null)
                                 .build());
 
-                characters.put((long) 11, Character.builder()
+                characters.put(11L, Character.builder()
                                 .name("Sinclair")
                                 .bookQuote("Die böse Welt indessen begann schon mitten in unserem eigenen Hause.")
                                 .englishBookQuote(
@@ -155,7 +155,7 @@ public class CharacterService {
                                 .voiceActor("Kim Da-ol")
                                 .build());
 
-                characters.put((long) 12, Character.builder()
+                characters.put(12L, Character.builder()
                                 .name("Outis")
                                 .bookQuote("Είμαι... ου τις απολύτως.")
                                 .englishBookQuote("I am... nothing at all.")
@@ -166,7 +166,7 @@ public class CharacterService {
                                 .voiceActor("Kim Bo-na")
                                 .build());
 
-                characters.put((long) 13, Character.builder()
+                characters.put(13L, Character.builder()
                                 .name("Gregor")
                                 .bookQuote("Als ich aus unruhigen Träumen erwachte, hatte ich mich in ein ungeheures Ungeziefer verwandelt.")
                                 .englishBookQuote(

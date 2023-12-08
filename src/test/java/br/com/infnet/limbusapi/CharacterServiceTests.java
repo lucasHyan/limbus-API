@@ -1,5 +1,6 @@
 package br.com.infnet.limbusapi;
 
+import br.com.infnet.limbusapi.exception.ResourceNotFoundException;
 import br.com.infnet.limbusapi.model.Character;
 import br.com.infnet.limbusapi.service.CharacterService;
 import org.junit.jupiter.api.Test;
@@ -35,6 +36,24 @@ class CharacterServiceTests {
 	}
 
 	@Test
+	void testCreateCharacter() {
+		Character character = Character.builder()
+				.name("Outis")
+				.bookQuote("Είμαι... ου τις απολύτως.")
+				.englishBookQuote("I am... nothing at all.")
+				.gender("Female")
+				.sinnerNumber(12)
+				.color("#325339")
+				.literarySource("(The) Odyssey")
+				.voiceActor("Kim Bo-na")
+				.build();
+
+		Character result = characterService.createCharacter(character);
+		logger.info(result.toString());
+		assertEquals(character, result);
+	}
+
+	@Test
 	void TestDeleteCharacter() {
 		int id = 1;
 		Optional<Character> character = characterService.getById(id);
@@ -44,4 +63,16 @@ class CharacterServiceTests {
 		assertFalse(deletedCharacter.isEmpty());
 	}
 
+	@Test
+	void testUpdateNonExistingCharacter() {
+		int id = 20;
+		Character character = new Character();
+
+		List<Character> allCharacters = characterService.getAll();
+		allCharacters.forEach(c -> logger.info(c.toString()));
+
+		assertThrows(ResourceNotFoundException.class, () -> {
+			characterService.updateById(id, character);
+		});
+	}
 }
