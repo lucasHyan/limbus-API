@@ -12,6 +12,7 @@ import java.util.*;
 @Service
 public class CharacterService {
         private Map<Long, Character> characters = initCharacter();
+        private Long lastId = 13L;
 
         private Map<Long, Character> initCharacter() {
                 Map<Long, Character> characters = new HashMap<>();
@@ -214,7 +215,7 @@ public class CharacterService {
 
         public Character createCharacter(Character character) {
                 try {
-                        Long id = (long) characters.size() + 1;
+                        Long id = incrementID();
                         characters.put(id, character);
                         return character;
                 } catch (Exception ex) {
@@ -228,8 +229,8 @@ public class CharacterService {
 
         }
 
-        public List<Character> getAll(Integer size, String sort, String order) {
-                List<Character> subsized = getAll(size);
+        public List<Character> getAll(String sort, String order) {
+                List<Character> subsized = getAll();
                 Comparator<Character> comparator;
 
                 switch (sort) {
@@ -251,5 +252,50 @@ public class CharacterService {
                 }
 
                 return subsized.stream().sorted(comparator).toList();
+        }
+
+        public List<Character> getAll(Integer size, String sort, String order, int start, int end, int page) {
+                List<Character> all = getAll(sort, order);
+
+                int startPage = (page - 1) * size;
+                int endPage = page * (size);
+                return all.subList(startPage, endPage);
+        }
+
+        public long count() {
+                return characters.size();
+        }
+
+        public Long getLastId() {
+                return lastId;
+        }
+
+        public Long incrementID() {
+                this.lastId++;
+                return lastId;
+        }
+
+        public int getTotalPages(int size) {
+                double totalSize = (double) count();
+
+                double totalPages = totalSize / (double) size;
+                return (int) Math.ceil(totalPages);
+        }
+
+        public List<Character> getByPage(int page, int size, String sort, String order) {
+                int totalPages = getTotalPages(size);
+                if (page < 1 || size < 1) {
+                        throw new IllegalArgumentException("Page and size must be greater than 0");
+                }
+                if (page > totalPages) {
+                        throw new ResourceNotFoundException("Page not found");
+                }
+
+                List<Character> all = getAll(sort, order);
+                int totalSize = all.size();
+
+                int start = (page - 1) * size;
+                int end = Math.min(page * size, totalSize);
+                return all.subList(start, end);
         }
 }

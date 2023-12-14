@@ -4,9 +4,12 @@ import br.com.infnet.limbusapi.exception.ResourceNotFoundException;
 import br.com.infnet.limbusapi.model.Character;
 import br.com.infnet.limbusapi.payload.ResponsePayload;
 import br.com.infnet.limbusapi.service.CharacterService;
+import br.com.infnet.limbusapi.utils.HttpUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,16 +22,22 @@ public class CharacterController {
     Logger logger = LoggerFactory.getLogger(CharacterController.class);
     @Autowired
     CharacterService characterService;
+    @Autowired
+    HttpUtils httpUtils;
 
     @GetMapping
-    public List<Character> getAll(@RequestParam(required = false, defaultValue = "13")Integer size,
-                                  @RequestParam(required = false, defaultValue = "") String sort,
-                                  @RequestParam(required = false, defaultValue = "") String order,
-                                  @RequestParam(required = false, defaultValue = "1") int start,
-                                  @RequestParam(required = false, defaultValue = "10") int end,
-                                  @RequestParam(required = false, defaultValue = "1") int page) {
-        logger.info(size.toString());
-        return characterService.getAll(size,sort,order);
+    public ResponseEntity getAll(@RequestParam(required = false, defaultValue = "13") Integer size,
+            @RequestParam(required = false, defaultValue = "") String sort,
+            @RequestParam(required = false, defaultValue = "") String order,
+            @RequestParam(required = false, defaultValue = "1") int page) {
+        try {
+            List<Character> all = characterService.getByPage(page, size, sort, order);
+            HttpHeaders httpHeaders = httpUtils.getHttpHeaders(size, page);
+            return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(all);
+        } catch (ResourceNotFoundException | IllegalArgumentException ex) {
+            ResponsePayload responsePayload = new ResponsePayload(ex.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responsePayload);
+        }
     }
 
     @GetMapping("/{id}")

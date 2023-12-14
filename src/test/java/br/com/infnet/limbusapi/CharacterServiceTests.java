@@ -4,6 +4,8 @@ import br.com.infnet.limbusapi.exception.ResourceNotFoundException;
 import br.com.infnet.limbusapi.model.Character;
 import br.com.infnet.limbusapi.model.Ego;
 import br.com.infnet.limbusapi.service.CharacterService;
+
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,16 +29,11 @@ class CharacterServiceTests {
 		List<Character> characters = characterService.getAll();
 		assertEquals(13, characters.size());
 	}
-	@Test
-	void TestGetAllWithSize() {
-		List<Character> characters = characterService.getAll(5, "", "");
-		assertEquals(5, characters.size());
-		logger.info(Integer.toString(characters.size()));
-	}
+
 	@Test
 	void TestGetAllWithSort() {
-		List<Character> characters = characterService.getAll(13, "name", "asc");
-		assertEquals("D", characters.get(0).getName().substring(0,1));
+		List<Character> characters = characterService.getAll("name", "asc");
+		assertEquals("D", characters.get(0).getName().substring(0, 1));
 		logger.info(characters.get(0).getName());
 	}
 
@@ -53,20 +50,20 @@ class CharacterServiceTests {
 	void testCreateCharacter() {
 
 		List<Ego> testListEgo = new ArrayList<>();
-                testListEgo.add(Ego.builder()
-                                .name("Crow's Eye View Yi Sang")
-                                .quote("Utter to me what you think the ideal is.")
-                                .affinity("Sloth")
-                                .abnormality(null)
-                                .riskLevel("Zayin")
-                                .build());
-                testListEgo.add(Ego.builder()
-                                .name("4th Match Flame Yi Sang")
-                                .quote("I burn what I wish to burn.")
-                                .affinity("Wrath")
-                                .abnormality("Pyrokinesis")
-                                .riskLevel("TETH")
-                                .build());
+		testListEgo.add(Ego.builder()
+				.name("Crow's Eye View Yi Sang")
+				.quote("Utter to me what you think the ideal is.")
+				.affinity("Sloth")
+				.abnormality(null)
+				.riskLevel("Zayin")
+				.build());
+		testListEgo.add(Ego.builder()
+				.name("4th Match Flame Yi Sang")
+				.quote("I burn what I wish to burn.")
+				.affinity("Wrath")
+				.abnormality("Pyrokinesis")
+				.riskLevel("TETH")
+				.build());
 
 		Character character = Character.builder()
 				.name("TEST CHARACTER")
@@ -83,7 +80,7 @@ class CharacterServiceTests {
 		Character result = characterService.createCharacter(character);
 		assertNotNull(result);
 
-		//This code is very ugly, later i will change it to a better solution
+		// This code is very ugly, later i will change it to a better solution
 		assertEquals(character.getName(), result.getName());
 		assertEquals(character.getBookQuote(), result.getBookQuote());
 		assertEquals(character.getEnglishBookQuote(), result.getEnglishBookQuote());
@@ -93,7 +90,7 @@ class CharacterServiceTests {
 		assertEquals(character.getLiterarySource(), result.getLiterarySource());
 		assertEquals(character.getVoiceActor(), result.getVoiceActor());
 		assertEquals(character.getEgos(), result.getEgos());
-	
+
 		logger.info(result.toString());
 	}
 
@@ -118,5 +115,11 @@ class CharacterServiceTests {
 		assertThrows(ResourceNotFoundException.class, () -> {
 			characterService.updateById(id, character);
 		});
+	}
+
+	@Test
+	public void testPageQuantity() {
+		int totalDePaginas = characterService.getTotalPages(4);
+		assertEquals(4, totalDePaginas);
 	}
 }
