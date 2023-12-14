@@ -5,7 +5,7 @@ import br.com.infnet.limbusapi.model.Character;
 import br.com.infnet.limbusapi.model.Ego;
 import br.com.infnet.limbusapi.service.CharacterService;
 
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,8 +21,12 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class CharacterServiceTests {
 	Logger logger = LoggerFactory.getLogger(CharacterService.class);
-	@Autowired
 	CharacterService characterService;
+
+	@BeforeEach
+	void init() {
+		characterService = new CharacterService();
+	}
 
 	@Test
 	void TestGetAll() {
@@ -80,7 +84,7 @@ class CharacterServiceTests {
 		Character result = characterService.createCharacter(character);
 		assertNotNull(result);
 
-		// This code is very ugly, later i will change it to a better solution
+		// This code is very ugly, I will change it later to a better solution
 		assertEquals(character.getName(), result.getName());
 		assertEquals(character.getBookQuote(), result.getBookQuote());
 		assertEquals(character.getEnglishBookQuote(), result.getEnglishBookQuote());
@@ -101,7 +105,7 @@ class CharacterServiceTests {
 		assertNotNull(character);
 		characterService.deleteById(id);
 		Optional<Character> deletedCharacter = characterService.getById(id);
-		assertFalse(deletedCharacter.isEmpty());
+		assertTrue(deletedCharacter.isEmpty());
 	}
 
 	@Test
@@ -112,14 +116,12 @@ class CharacterServiceTests {
 		List<Character> allCharacters = characterService.getAll();
 		allCharacters.forEach(c -> logger.info(c.toString()));
 
-		assertThrows(ResourceNotFoundException.class, () -> {
-			characterService.updateById(id, character);
-		});
+		assertThrows(ResourceNotFoundException.class, () -> characterService.updateById(id, character));
 	}
 
 	@Test
 	public void testPageQuantity() {
-		int totalDePaginas = characterService.getTotalPages(4);
-		assertEquals(4, totalDePaginas);
+		int totalPages = characterService.getTotalPages(4);
+		assertEquals(4, totalPages);
 	}
 }

@@ -1,6 +1,5 @@
 package br.com.infnet.limbusapi.utils;
 
-import br.com.infnet.limbusapi.model.Character;
 import br.com.infnet.limbusapi.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

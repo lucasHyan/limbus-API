@@ -4,7 +4,6 @@ import br.com.infnet.limbusapi.exception.CharacterCreationException;
 import br.com.infnet.limbusapi.exception.ResourceNotFoundException;
 import br.com.infnet.limbusapi.model.Character;
 import br.com.infnet.limbusapi.model.Ego;
-import org.apache.tomcat.websocket.ClientEndpointHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -200,8 +199,7 @@ public class CharacterService {
                 if (!characters.containsKey(idLong)) {
                         throw new ResourceNotFoundException("Character not found.");
                 }
-                Character removed = characters.remove(id);
-                return removed;
+            return characters.remove(idLong);
         }
 
         public Character updateById(int id, Character character) {
@@ -223,11 +221,7 @@ public class CharacterService {
                 }
         }
 
-        public List<Character> getAll(Integer size) {
-                List<Character> list = characters.values().stream().toList();
-                return list.subList(0, size);
 
-        }
 
         public List<Character> getAll(String sort, String order) {
                 List<Character> subsized = getAll();
@@ -254,21 +248,12 @@ public class CharacterService {
                 return subsized.stream().sorted(comparator).toList();
         }
 
-        public List<Character> getAll(Integer size, String sort, String order, int start, int end, int page) {
-                List<Character> all = getAll(sort, order);
 
-                int startPage = (page - 1) * size;
-                int endPage = page * (size);
-                return all.subList(startPage, endPage);
-        }
 
         public long count() {
                 return characters.size();
         }
 
-        public Long getLastId() {
-                return lastId;
-        }
 
         public Long incrementID() {
                 this.lastId++;
