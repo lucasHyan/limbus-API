@@ -4,6 +4,7 @@ import br.com.infnet.limbusapi.exception.CharacterCreationException;
 import br.com.infnet.limbusapi.exception.ResourceNotFoundException;
 import br.com.infnet.limbusapi.model.Character;
 import br.com.infnet.limbusapi.model.Ego;
+import org.apache.tomcat.websocket.ClientEndpointHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -219,5 +220,36 @@ public class CharacterService {
                 } catch (Exception ex) {
                         throw new CharacterCreationException("Failed to create character.", ex);
                 }
+        }
+
+        public List<Character> getAll(Integer size) {
+                List<Character> list = characters.values().stream().toList();
+                return list.subList(0, size);
+
+        }
+
+        public List<Character> getAll(Integer size, String sort, String order) {
+                List<Character> subsized = getAll(size);
+                Comparator<Character> comparator;
+
+                switch (sort) {
+                        case "name":
+                                comparator = Comparator.comparing(Character::getName);
+                                break;
+                        case "gender":
+                                comparator = Comparator.comparing(Character::getGender);
+                                break;
+                        case "sinnerNumber":
+                                comparator = Comparator.comparing(Character::getSinnerNumber);
+                                break;
+                        default:
+                                return subsized;
+                }
+
+                if (order.equals("desc")) {
+                        comparator = comparator.reversed();
+                }
+
+                return subsized.stream().sorted(comparator).toList();
         }
 }
