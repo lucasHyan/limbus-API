@@ -1,5 +1,3 @@
-# Character Controller API
-
 ## Endpoints
 
 ### 1. Get All Characters
