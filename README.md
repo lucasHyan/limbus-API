@@ -16,6 +16,9 @@
   - **200 OK:** Returns a list of characters with pagination information.
   - **404 Not Found:** If no characters are found or if the request parameters are invalid.
 
+![Insomnia_V7Gq3wXKnh](https://github.com/lucasHyan/limbus-API/assets/58123406/8b38dffb-d016-453e-b822-288f4539603d)
+
+
 ### 2. Get Character by ID
 
 - **Endpoint:** `GET /character/{id}`
@@ -26,6 +29,9 @@
 - **Response:**
   - **200 OK:** Returns the character with the specified ID.
   - **404 Not Found:** If the character with the specified ID is not found.
+![Insomnia_J5T1FED9PB](https://github.com/lucasHyan/limbus-API/assets/58123406/b7c49582-cd03-4051-99c0-f8b6de7e2858)
+
+
 
 ### 3. Delete Character by ID
 
@@ -107,4 +113,6 @@ Example request body
 - **Response:**
   - **200 OK:** Returns the created character.
   - **400 Bad Request:** If there is an issue with the request body or if the character creation fails.
+ 
+    
 
